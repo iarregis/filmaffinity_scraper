@@ -25,7 +25,7 @@ class FilmDetailSpider(scrapy.Spider):
         'FEED_FORMAT': 'csv',
         'FEED_URI': pathCsv,
         'FEED_EXPORT_FIELDS':['titulo','genero','anyo','duracion','pais','direccion','guion','musica','fotografia','reparto','productor','puntuacion','numVal']
-    }
+    	}
 
 	def start_requests(self):
 		
@@ -37,12 +37,12 @@ class FilmDetailSpider(scrapy.Spider):
 
 		item = Filmaffinity_Detail_Item()
 #
-		item['titulo'] = response.xpath('//dl[@class="movie-info"]/dd/text()').extract_first().strip()
-		item['genero'] = response.xpath('//dt[text()="Género"]/following-sibling::dd[1]/span[@itemprop="genre"]/a//text()').extract_first().strip()
+		item['titulo'] = response.xpath('//dl[@class="movie-info"]/dd/text()').extract()[0].strip()
+		item['genero'] = response.xpath('//dt[text()="Género"]/following-sibling::dd[1]/span[@itemprop="genre"]/a//text()').extract()[0].strip()
 		item['anyo'] = response.xpath('//dt[text()="Año"]/following-sibling::dd[1]/text()').extract()[0].strip()
-		item['duracion'] = response.xpath('//dt[text()="Duración"]/following-sibling::dd[1]/text()').extract_first().strip()
-		item['pais'] = response.xpath('//dt[text()="País"]/following-sibling::dd[1]/text()').extract_first().strip()
-		item['direccion'] = response.xpath('//dd[@class="directors"]/span/a/@title').extract_first()
+		item['duracion'] = response.xpath('//dt[text()="Duración"]/following-sibling::dd[1]/text()').extract()[0].strip()
+		item['pais'] = response.xpath('//dt[text()="País"]/following-sibling::dd[1]/text()').extract()[0].strip()
+		item['direccion'] = response.xpath('//dd[@class="directors"]/span/a/@title').extract()[0].strip()
 		item['guion'] = response.xpath('//dt[text()="Guion"]/following-sibling::dd[1]/div[@class="credits"]/span[@class="nb"]/span/text()').extract()
 		item['musica'] = response.xpath('//dt[text()="Música"]/following-sibling::dd[1]/div[@class="credits"]/span[@class="nb"]/span/text()').extract()
 		item['fotografia'] = response.xpath('//dt[text()="Fotografía"]/following-sibling::dd[1]/div[@class="credits"]/span[@class="nb"]/span/text()').extract()
